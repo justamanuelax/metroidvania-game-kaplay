@@ -1,0 +1,7 @@
+maps/* 
+lib/* 
+assets/* 
+.vscode/* 
+
+
+# Gitignore needs to be the first file inside the folder it CANNOT be nested 
