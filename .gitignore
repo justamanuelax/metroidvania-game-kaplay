@@ -1,7 +1,11 @@
-maps/* 
 lib/* 
 assets/* 
 .vscode/* 
 
 
 # Gitignore needs to be the first file inside the folder it CANNOT be nested 
+
+
+# Ignore all files ending with .mjs 
+*.mjs
+
