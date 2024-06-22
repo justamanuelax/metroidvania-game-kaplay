@@ -1,3 +1,3 @@
-export function room2(){
+export function room2(k){
     
 }
