@@ -1,5 +1,5 @@
 // Import the setBackgroundColor function from roomsUtils.js
-import { setBackgroundColor } from "./roomsUtils.js";
+import { setBackgroundColor, setMapColliders } from "./roomsUtils.js";
 
 // Export the room1 function which initializes the room
 export function room1(k, roomData) {
@@ -25,7 +25,7 @@ export function room1(k, roomData) {
             break;
         }
     }
-
+    setMapColliders(k, map, colliders);
     // Log the colliders array to the console for debugging purposes
     console.log(colliders);
 }

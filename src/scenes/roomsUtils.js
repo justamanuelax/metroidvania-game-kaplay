@@ -11,7 +11,7 @@ export function setBackgroundColor(k, hexColorCode) {
 }
 
 // Function to set colliders for the game map
-export function setMapColliders(k, colliders) {
+export function setMapColliders(k,map, colliders) {
     // Iterate over each collider in the provided colliders array
     for (const collider of colliders) {
         if(collider.polygons) {
