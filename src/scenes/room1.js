@@ -6,6 +6,11 @@ export function room1(k, roomData) {
     // Set the background color of the room using the setBackgroundColor function
     setBackgroundColor(k, "#FFEECC");
 
+    k.camScale(4);
+    k.camPos(170, 100);
+    k.setGravity(1000); 
+    
+
     // Extract the layers from the roomData
     const roomLayers = roomData.layers;
 
