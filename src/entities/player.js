@@ -1,6 +1,5 @@
-import { k } from "../kaplayLoader";
-
-export function makePlayer(){
+import { state } from "../state/globalStateManager.js";
+export function makePlayer(k){
     return k.make([
         k.pos(), 
         k.sprite("player"), k.area({
@@ -18,17 +17,21 @@ export function makePlayer(){
         {
             speed: 150, 
             isAttacking: false, 
+            setPosition(x,y){
+                this.pos.x = x;
+                this.pos.y = y;
+            },
             setControls(){ // 
                 this.controlHandlers = [];
                 
 
-                this.controlHandlers.push(k.keyPress( (key) => {
+                this.controlHandlers.push(k.onKeyPress((key) => {
                     if(key === "x"){
                         if(this.curAnim() !== "jump") this.play("jump");
                         this.doubleJump();
                     }
 
-                    if(key === "z" && this.currAnim() !== "attack" && this.isGrounded()){
+                    if(key === "z" && this.curAnim() !== "attack" && this.isGrounded()){
                         this.isAttacking = true;
                         this.add([ 
                             k.pos(this.flipX ? -25 : 0, 10), k.area({ 
@@ -61,7 +64,7 @@ export function makePlayer(){
                 }));
 
 
-                this.controlHandlers.push(k.keyPress( (key) => {
+                this.controlHandlers.push(k.onKeyPress( (key) => {
 
                     if(key === "left" && !this.isAttacking){
                         if(this.curAnim() !== "run" && this.isGrounded()){
@@ -69,9 +72,11 @@ export function makePlayer(){
 
 
                         }
-                        this.flipX = false;
+                        this.flipX = true;
 
                         this.move(-this.speed, 0);
+                        console.log(`Moving left with speed: ${-this.speed}`);
+
                         return;
                     }
 
@@ -84,13 +89,22 @@ export function makePlayer(){
                         this.flipX = false;
 
                         this.move(this.speed, 0);
+                        console.log(`Moving right with speed: ${this.speed}`);
+
                         return;
                     }
 
                 }));
 
+                this.controlHandlers.push(k.onKeyRelease( (key) => {
+                    if(this.curAnim() !== "idle" && 
+                                        this.curAnim() !== "jump" &&
+                                        this.curAnim() !== "fall" && 
+                                        this.curAnim() !== "attack" ){
+                                            this.play("idle");
+                                        }
+                }));
 
-                
             }
         }
     ]);

@@ -1,5 +1,8 @@
 // Import the setBackgroundColor function from roomsUtils.js
+import { makePlayer } from "../entities/player.js";
 import { setBackgroundColor, setMapColliders } from "./roomsUtils.js";
+import { state } from "../state/globalStateManager.js";
+import { k } from "../kaplayLoader.js";
 
 // Export the room1 function which initializes the room
 export function room1(k, roomData) {
@@ -21,17 +24,31 @@ export function room1(k, roomData) {
     // Initialize an empty array to store collider objects
     const colliders = [];
 
+    const positions = [];
     // Iterate through each layer in the roomLayers
     for (const layer of roomLayers) {
         // Check if the current layer is named "colliders"
+        if(layer.name === "positions"){
+            positions.push(...layer.objects);
+            continue;
+        }
         if (layer.name === "colliders") {
             // If it is, add all objects from this layer to the colliders array
             colliders.push(...layer.objects);
             // Break the loop as we found the colliders layer
-            break;
+            
         }
     }
     setMapColliders(k, map, colliders);
     // Log the colliders array to the console for debugging purposes
     console.log(colliders);
+
+    const player = k.add(makePlayer(k));
+
+    for(const position of positions){
+        if(position.name === "player"){
+            player.setPosition(position.x, position.y);
+            player.setControls();
+        }
+    }
 }
