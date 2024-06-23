@@ -28,7 +28,7 @@ export function setCameraControls(k, player, map , roomData){
                 k.camPos().y
             );
             return; 
-            
+
         }
 
         k.camPos(player.pos.x, k.camPos().y);
@@ -53,6 +53,7 @@ export function setMapColliders(k, map, colliders) {
           shape: new k.Polygon(coordinates),
           collisionIgnore: ["collider"],
         }),
+        k.body({isStatic: true}), 
         "collider",
         collider.type,
       ]);
