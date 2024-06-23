@@ -3,6 +3,11 @@ import { makePlayer } from "../entities/player.js";
 import { setBackgroundColor, setMapColliders } from "./roomsUtils.js";
 import { state } from "../state/globalStateManager.js";
 import { k } from "../kaplayLoader.js";
+import { setCameraZones } from "./roomsUtils.js";
+
+
+
+
 
 // Export the room1 function which initializes the room
 export function room1(k, roomData) {
@@ -25,6 +30,9 @@ export function room1(k, roomData) {
     const colliders = [];
 
     const positions = [];
+
+    const cameras = [];
+
     // Iterate through each layer in the roomLayers
     for (const layer of roomLayers) {
         // Check if the current layer is named "colliders"
@@ -32,6 +40,11 @@ export function room1(k, roomData) {
             positions.push(...layer.objects);
             continue;
         }
+
+        if(layer.name === "cameras"){
+            cameras.push(...layer.objects);
+        }
+
         if (layer.name === "colliders") {
             // If it is, add all objects from this layer to the colliders array
             colliders.push(...layer.objects);
@@ -42,7 +55,11 @@ export function room1(k, roomData) {
 
     }
     setMapColliders(k, map, colliders);
+
     // Log the colliders array to the console for debugging purposes
+
+    setCameraZones(k, map, cameras);
+ 
     console.log(colliders);
 
     const player = k.add(makePlayer(k));
@@ -59,7 +76,7 @@ export function room1(k, roomData) {
         player.setEvents(); 
 
         player.enablePassthrough();
-        
+
 
     }
   }
