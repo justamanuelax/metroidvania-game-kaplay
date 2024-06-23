@@ -64,7 +64,7 @@ export function makePlayer(k){
                 }));
 
 
-                this.controlHandlers.push(k.onKeyPress( (key) => {
+                this.controlHandlers.push(k.onKeyDown( (key) => {
 
                     if(key === "left" && !this.isAttacking){
                         if(this.curAnim() !== "run" && this.isGrounded()){
@@ -105,7 +105,35 @@ export function makePlayer(k){
                                         }
                 }));
 
+            },
+            enablePassthrough(){
+                this.onBeforePhysicsResolve((collision) => 
+                {
+                    if(collision.target.is("passthrough") && this.isJumping()){
+                        collision.preventResolution(); 
+                        
+                    }
+                })
+            },
+            setEvents(){
+                this.onFall(() => {
+                    this.play("fall");
+                }),
+                this.onFall(() => {
+                    this.play("fall");
+                }),
+                this.onFallOff(() => {
+                    this.play("fall");
+                }),
+                this.onGround(() => {
+                    this.play("idle");
+                }),
+
+                this.onHeadbutt(() => {
+                    this.play("fall")
+                })
             }
+
         }
     ]);
 }

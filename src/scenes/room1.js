@@ -38,6 +38,8 @@ export function room1(k, roomData) {
             // Break the loop as we found the colliders layer
             
         }
+
+
     }
     setMapColliders(k, map, colliders);
     // Log the colliders array to the console for debugging purposes
@@ -45,10 +47,20 @@ export function room1(k, roomData) {
 
     const player = k.add(makePlayer(k));
 
-    for(const position of positions){
-        if(position.name === "player"){
-            player.setPosition(position.x, position.y);
-            player.setControls();
-        }
+  // Loop through each position object in the positions array
+  for (const position of positions) {
+    // Check if the current position object has a name property equal to "player"
+    if (position.name === "player") {
+      // Set the player's position using the x and y properties of the position object
+      player.setPosition(position.x, position.y);
+      // Set the player's controls
+      player.setControls();
+ 
+        player.setEvents(); 
+
+        player.enablePassthrough();
+        
+
     }
+  }
 }
