@@ -24,7 +24,7 @@ export function room1(k, roomData) {
     const roomLayers = roomData.layers;
 
     // Add a sprite to represent the room's map at position (0, 0)
-    const map = k.add([k.pos(0, 0), k.sprite("room1")]);
+    const map = k.add([k.pos(), k.sprite("room1")]);
 
     // Initialize an empty array to store collider objects
     const colliders = [];
@@ -48,8 +48,7 @@ export function room1(k, roomData) {
         if (layer.name === "colliders") {
             // If it is, add all objects from this layer to the colliders array
             colliders.push(...layer.objects);
-            // Break the loop as we found the colliders layer
-            
+                                    
         }
 
 

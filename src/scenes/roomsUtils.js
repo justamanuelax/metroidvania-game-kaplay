@@ -36,11 +36,11 @@ export function setCameraControls(k, player, map , roomData){
 }
 
 // Function to set colliders for the game map
-export function setMapColliders(k, map, colliders) {
+export function setMapColliders(k, map, collidery) {
   // Iterate over each collider in the provided colliders array
-  for (const collider of colliders) {
+  for (const collider of collidery) {
     // Check if the collider has polygons
-    if (collider.polygons) {
+    if (collider.polygon) {
       // Create an array of coordinates for the polygon
       const coordinates = [];
       for (const point of collider.polygon) {
@@ -51,7 +51,7 @@ export function setMapColliders(k, map, colliders) {
         k.pos(collider.x, collider.y),
         k.area({
           shape: new k.Polygon(coordinates),
-          collisionIgnore: ["collider"],
+          collisionIgnore: ["collider"]
         }),
         k.body({isStatic: true}), 
         "collider",
@@ -59,14 +59,8 @@ export function setMapColliders(k, map, colliders) {
       ]);
       continue;
     }
-
-    // Check if the collider is a boss barrier (not implemented yet)
-    if (collider.name === "boss-barrier") {
-      // TODO
-      continue;
-    }
-
-    // Add a rectangular collider to the map
+      
+      // Add a rectangular collider to the map
     map.add([
       k.pos(collider.x, collider.y),
       k.area({
