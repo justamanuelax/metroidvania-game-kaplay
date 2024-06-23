@@ -1,3 +1,4 @@
+import { state } from "../state/globalStateManager.js";
 // Function to set the background color of the game scene
 // Function to set the background color of the game scene
 export function setBackgroundColor(k, hexColorCode) {
@@ -9,6 +10,23 @@ export function setBackgroundColor(k, hexColorCode) {
     k.color(k.Color.fromHex(hexColorCode)),
     k.fixed(),
   ]);
+}
+
+
+export function setCameraControls(k, player, map , roomData){
+    k.onUpdate(() => {
+        if(state.current().playerInBossFight) return; 
+
+        if(map.pos.x + 160 > player.pos.x){
+            k.pos( 
+                map.pos.x + roomData.width * roomData.tilewidth - 160, 
+                k.camPos().y
+            );
+            return; 
+
+        }
+        k.camPos(player.pos.x, k.camPos().y);
+    })
 }
 
 // Function to set colliders for the game map

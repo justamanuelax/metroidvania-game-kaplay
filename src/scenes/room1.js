@@ -1,9 +1,9 @@
 // Import the setBackgroundColor function from roomsUtils.js
 import { makePlayer } from "../entities/player.js";
-import { setBackgroundColor, setMapColliders } from "./roomsUtils.js";
+import { setBackgroundColor,setCameraZones ,setCameraControls, setMapColliders } from "./roomsUtils.js";
 import { state } from "../state/globalStateManager.js";
 import { k } from "../kaplayLoader.js";
-import { setCameraZones } from "./roomsUtils.js";
+
 
 
 
@@ -60,9 +60,12 @@ export function room1(k, roomData) {
 
     setCameraZones(k, map, cameras);
  
+
     console.log(colliders);
 
     const player = k.add(makePlayer(k));
+    
+    setCameraControls(k,player, map, roomData);
 
   // Loop through each position object in the positions array
   for (const position of positions) {
